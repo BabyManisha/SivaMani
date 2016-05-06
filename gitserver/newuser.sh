@@ -20,13 +20,16 @@ cat > /etc/apache2/sites-enabled/$1.conf <<EOF
 </Location>
 EOF
 
-# Generate a random password
-pwd=$(apg -n 1)
+pwd=$2
 
 htpasswd -bc /etc/apache2/passwd.$1.git $1 $pwd
 htpasswd -b /etc/apache2/passwd.$1.git tester tester
 
-echo $1,$pwd,$2 >> pwdlist
+
+
+echo $1,$pwd,$3 >> pwdlist
+
+
 
 # Setup git repository
 cd /opt/git
@@ -34,3 +37,5 @@ mkdir $1.git
 cd $1.git
 git init --bare
 chown -R www-data.www-data .
+
+sudo service apache2 restart

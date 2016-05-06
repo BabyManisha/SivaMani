@@ -1,0 +1,11 @@
+
+description "Test Coordinator Upstart Script"
+
+start on runlevel [235]
+stop on runlevel [016]
+respawn
+
+script
+    cd $GITSERVER_ROOT/testcoordinator
+    python project.py >> /var/log/testcoordinator.log 2>&1
+end script

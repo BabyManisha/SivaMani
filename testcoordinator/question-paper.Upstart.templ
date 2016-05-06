@@ -1,0 +1,9 @@
+description "Quetion Paper  Deamon Upstart Script"
+start on runlevel [235]
+stop on runlevel [016]
+respawn
+
+script
+    cd $GITSERVER_ROOT/testcoordinator
+    python question_paperd.py >> /var/log/question-paper.log 2>&1
+end script
